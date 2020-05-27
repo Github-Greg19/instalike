@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    //UserToPosts Relationship. One to many.
+    public function posts()
+    {
+        #return $this->hasMany(Post::class); #By default, it is accending
+        return $this->hasMany(Post::class)->orderBy('created_at','DESC');
+    }
+
+    //User to Profile relationship. One is to one.
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

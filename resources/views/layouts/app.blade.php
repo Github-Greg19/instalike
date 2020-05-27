@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex" href="{{ url('/') }}">
+                <a class="navbar-brand d-flex" href="{{ url('/p') }}">
                     <div><img src= "https://cdn.dribbble.com/users/41636/screenshots/2719580/instagram-logo-concept.jpg" style="height: 40px; border-right: 1px solid #333;"></div>
                     <div class="pl-3 pt-1"> Instagram-Like</div>
                 </a>
