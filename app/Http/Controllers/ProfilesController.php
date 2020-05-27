@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 //Added
 use App\User;
+use Intervention\Image\Facades\Image;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +12,9 @@ class ProfilesController extends Controller
 
     public function index(User $user)
     {
-        return view('profiles.index', compact('user'));
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id): false;
+
+        return view('profiles.index', compact('user','follows'));
     }
     /*public function index($user)
     {
@@ -26,23 +29,43 @@ class ProfilesController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update',$user->profile); // Authorization via Policy.
         return view('profiles.edit',compact('user'));
     }
 
     public function update(User $user)
     {
+
+        $this->authorize('update',$user->profile); // Authorization via Policy.
         $data = request()->validate([
             'title' => 'required', // "" if not required
             'description' => 'required',
             'url' => 'url',
-            'image' => '',
+            'image' => '',  
         ]);
+        auth()->user()->profile->update($data);
+        
 
-        #dd($data);
+        
+        //For the profile picture
+        if (request('image'))
+        {
+            $imagePath = request('image')->store('profile', 'public');
 
-        $user->profile->update($data);
-
-        return redirect("/profile/{{ $user->id }}");
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000);
+            $image->save();
+        
+            $imageArray = ['image' => $imagePath];
+        }
+        
+        //auth()->$user->profile->update($data);
+        auth()->user()->profile->update(array_merge(
+            $data,
+            $imageArray ?? []
+            //['image' => $imagePath], #overides the value in $data array.
+        ));
+        
+        return redirect("/profile/{$user->id}");
     }
 
 }

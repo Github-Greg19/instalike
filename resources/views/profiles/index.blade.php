@@ -4,19 +4,26 @@
 <div class="container">
     <div class="row">
         <div class="col-3 p-5">
-            <img src="https://instagram.fmnl6-2.fna.fbcdn.net/v/t51.2885-19/s320x320/97566921_2973768799380412_5562195854791540736_n.jpg?_nc_ht=instagram.fmnl6-2.fna.fbcdn.net&_nc_ohc=HTiOQChzaQgAX_pIJUa&oh=21003d7c51d5192e4321f275a948fe29&oe=5EF4B89F" style="height:200px;" class="rounded-circle">
+            <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-100" >
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h1> {{ $user->username }} <h1>
-                <a href="/p/create"><h3>Add New Post<h3></a>
-               
+                <div class="d-flex align-items-center pb-3">
+                    <h1> {{ $user->username }} <h1>
+                    <!-- Vue JS component -->
+                    <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                </div>
+                @can('update',$user->profile)
+                    <a href="/p/create"><h3>Add New Post<h3></a>
+                @endcan
             </div>
-            <a href="/profile/{{ $user->id }}/edit">Edit Profile</a>
+            @can('update',$user->profile)
+		        <a href="/profile/{{ $user->id }}/edit" >Edit Profile</a>
+	        @endcan
             <div class="d-flex">
                 <div class="pr-4"><strong>{{ $user->posts->count() }}</strong> posts </div>
-                <div class="pr-4"><strong>23k</strong> followers </div>
-                <div class="pr-4"><strong>212</strong> Following </div>
+                <div class="pr-4"><strong>{{ $user->profile->followers->count() }}</strong> followers </div>
+                <div class="pr-4"><strong>{{ $user->following->count() }}</strong> Following </div>
             </div>
             <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
             <div>{{ $user->profile->description }}</div>

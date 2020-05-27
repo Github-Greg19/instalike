@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="/profile/{{ $user->id }}" enctype="multipart/form-data" method="GET">
+    <form action="/profile/{{ $user->id }}" enctype="multipart/form-data" method="POST">
         @csrf <!-- Adds security. Blocks hackers for uploading anything -->
         @method('PATCH')
         <div class="row">

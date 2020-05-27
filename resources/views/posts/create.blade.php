@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <form action="/p" enctype="multipart/form-data" method="POST">
+    <form action="/p" enctype="multipart/form-data" method="post">
         @csrf <!-- Adds security. Blocks hackers for uploading anything -->
         <div class="row">
             <div class="col-8 offset-2">
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="row">
-                    <label for="image" class="col-md-4 col-form-label">Profile Image</label>
+                    <label for="image" class="col-md-4 col-form-label">Post Image</label>
                     <input type="file" class="form-control-file" id="image" name="image">
                     @error('image')caption
                         <!-- <span class="invalid-feedback" role="alert"> -->
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="row pt-4">
-                    <button class="btn btn-primary">Save Profile</button>
+                    <button class="btn btn-primary">Add New Post</button>
                 </div>
                 
                 

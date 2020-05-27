@@ -36,11 +36,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user){
+            $user->profile()->create([
+                'title' => $user->username,
+            ]);
+
+
+        });
+    }
+
     //UserToPosts Relationship. One to many.
     public function posts()
     {
         #return $this->hasMany(Post::class); #By default, it is accending
         return $this->hasMany(Post::class)->orderBy('created_at','DESC');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(Profile::class);
     }
 
     //User to Profile relationship. One is to one.
