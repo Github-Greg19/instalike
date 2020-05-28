@@ -12,6 +12,19 @@ class PostsController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index()
+    {
+        $users = auth()->user()->following()->pluck('profiles.user_id'); //Gets all user_ids where user is following.
+        
+        #$posts = Post::whereIn('user_id', $users)->get();//Ascending
+        #$posts = Post::whereIn('user_id', $users)->orderBy('created_at', 'DESC')->get();//Ascending
+        $posts = Post::whereIn('user_id', $users)->latest()->get();//Ascending
+
+
+        return view('posts.index', compact('posts'));
+    }
+
     public function create()
     {
         return view('posts.create');

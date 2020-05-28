@@ -14,15 +14,17 @@ use Illuminate\Support\Facades\Auth; // Added because {{ $user->username}} is no
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 #For Axios
 Route::post('follow/{user}', 'FollowsController@store');
 
 
 Auth::routes();
+
+
+
+Route::get('/', 'PostsController@index');
 Route::get('/p/create','PostsController@create');
 Route::post('/p','PostsController@store');
 Route::get('/p/{post}', 'PostsController@show'); 
