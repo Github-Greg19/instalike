@@ -19,9 +19,9 @@ class PostsController extends Controller
         
         #$posts = Post::whereIn('user_id', $users)->get();//Ascending
         #$posts = Post::whereIn('user_id', $users)->orderBy('created_at', 'DESC')->get();//Ascending
-        $posts = Post::whereIn('user_id', $users)->latest()->get();//Ascending
-
-
+        //$posts = Post::whereIn('user_id', $users)->latest()->get();//Ascending
+        #$posts = Post::whereIn('user_id', $users)->latest()->paginate(5);
+        $posts = Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         return view('posts.index', compact('posts'));
     }
 

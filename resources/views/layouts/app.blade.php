@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex" href="{{ url('/p') }}">
+                <a class="navbar-brand d-flex" href="{{ url('/') }}">
                     <div><img src= "https://cdn.dribbble.com/users/41636/screenshots/2719580/instagram-logo-concept.jpg" style="height: 40px; border-right: 1px solid #333;"></div>
                     <div class="pl-3 pt-1"> Instagram-Like</div>
                 </a>
@@ -32,7 +32,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                    <!-- Left Side Of Navbar                       {{ url('/profile/{$user->id}') }}-->
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
